@@ -7,7 +7,20 @@
   <title>To Do List</title>
 </head>
 <body>
-  <h1><%= kindOfDay %> List</h1>
+
+  <h1> <%= kindOfDay %> </h1>
+
+  <ul>
+    <% newListItems.forEach((item) => { %>
+      <li> <%= item %> </li>
+    <% }) %>
+  </ul>
+
+  <form action="/" method="post">
+    <label for="newItem">To-do:</label>
+    <input type="text" name="newItem">
+    <button type="submit">Add</button>
+  </form>
 
 </body>
 </html>
