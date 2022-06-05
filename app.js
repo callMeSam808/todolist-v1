@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 
 let items = ["Buy food", "Cook food", "Eat Food"];
-const workItems = [];
+let workItems = [];
 
 
 app.get("/", (req, res) => {
@@ -40,6 +40,7 @@ app.post("/", (req, res) => {
 
 app.post("/reset", (req, res) => {
   items = [];
+  workItems = [];
   res.redirect("/");
 });
 
