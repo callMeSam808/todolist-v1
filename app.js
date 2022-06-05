@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-const items = ["Buy food", "Cook food", "Eat Food"];
+let items = ["Buy food", "Cook food", "Eat Food"];
 const workItems = [];
 
 
@@ -35,6 +35,12 @@ app.post("/", (req, res) => {
     items.push(item);
     res.redirect("/");
   }
+});
+
+
+app.post("/reset", (req, res) => {
+  items = [];
+  res.redirect("/");
 });
 
 
