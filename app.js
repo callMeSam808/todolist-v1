@@ -13,6 +13,7 @@ app.use(express.static("public"));
 
 
 let items = ["Buy food", "Cook food", "Eat Food"];
+let workItems = [];
 
 
 app.get("/", (req, res) => {
@@ -25,7 +26,7 @@ app.get("/", (req, res) => {
   let day = today.toLocaleDateString("en-US", options);
 
   res.render("list", {
-    kindOfDay: day,
+    listTitle: day,
     newListItems: items
   });
 });
@@ -33,39 +34,36 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   let item = req.body.newItem;
-  items.push(item);
-  res.redirect("/");
+  if (req.body.list === "Work") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
+    items.push(item);
+    res.redirect("/");
+  }
+});
+
+
+app.get("/work", (req, res) => {
+  res.render("list", {
+    listTitle: "Work List",
+    newListItems: workItems
+  });
+});
+
+
+app.post("/work", (req, res) => {
+  let item = req.body.newItem;
+  workItems.push(item);
+  res.redirect("/work");
+});
+
+
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
 
 app.listen(port, () => {
   console.log(`Todolist-v1 is listening on port ${port}`);
 });
-
-
-// let currentDay = today.getDay();
-// let day = "";
-
-// switch(currentDay) {
-//   case 0:
-//     day = "Sunday";
-//     break;
-//   case 1:
-//     day = "Monday";
-//     break;
-//   case 2:
-//     day = "Tuesday";
-//     break;
-//   case 3:
-//     day = "Wednesday";
-//     break;
-//   case 4:
-//     day = "Thursday";
-//     break;
-//   case 5:
-//     day = "Friday";
-//     break;
-//   case 6:
-//     day = "Saturday";
-//     break;
-// }
